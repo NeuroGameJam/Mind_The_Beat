@@ -1,0 +1,18 @@
+﻿using UnityEngine;
+using Prototype.NetworkLobby;
+using System.Collections;
+using UnityEngine.Networking;
+
+public class NetworkLobbyHook : LobbyHook 
+{
+    public override void OnLobbyServerSceneLoadedForPlayer(NetworkManager manager, GameObject lobbyPlayer, GameObject gamePlayer, int unix)
+    {
+        LobbyPlayer lobby = lobbyPlayer.GetComponent<LobbyPlayer>();
+        NetworkSpaceship spaceship = gamePlayer.GetComponent<NetworkSpaceship>();
+        
+        spaceship.name = lobby.playerName;
+        spaceship.color = lobby.playerColor;
+        spaceship.score = 0;
+        spaceship.lifeCount = unix + 5;
+    }
+}
